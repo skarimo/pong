@@ -2,8 +2,8 @@ let canvas;
 let canvasContext;
 let ballX = 50;
 let ballY = 50;
-let ballSpeedX = 10
-let ballSpeedY = 10
+let ballSpeedX = 5
+let ballSpeedY = 5
 let paddle1Y = 250
 let paddle2Y = 250
 const paddleWidth = 10
@@ -54,10 +54,19 @@ function ballReset() {
   ballY = canvas.height/2
 }
 
+function computerMovement() {
+  let paddle2YCenter = paddle2Y + (paddleHeight/2)
+  if (paddle2YCenter < ballY-35) {
+    paddle2Y += 6
+  } else if (paddle2YCenter > ballY+35) {
+    paddle2Y -= 6
+  }
+}
+
 function moveEverything() {
+  computerMovement()
   ballX += ballSpeedX
   ballY += ballSpeedY
-  paddle2Y = ballY - paddleHeight/2
   if(ballX > canvas.width-paddleWidth) {
     if ((ballY > paddle2Y) && ballY <= (paddle2Y+paddleHeight)) {
       ballSpeedX = -ballSpeedX
