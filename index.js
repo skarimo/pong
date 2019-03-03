@@ -5,6 +5,8 @@ let ballY = 50;
 let ballSpeedX = 10
 let ballSpeedY = 10
 let paddle1Y = 250
+let paddle2Y = 250
+const paddleWidth = 10
 const paddleHeight = 100
 
 window.onload = function() {
@@ -25,8 +27,10 @@ window.onload = function() {
 function drawEverything() {
   //canvas background
   colorRect(0,0,canvas.width,canvas.height, 'black');
-  //user paddle
-  colorRect(0,paddle1Y,10,paddleHeight, 'white');
+  //user paddle 1
+  colorRect(0,paddle1Y,paddleWidth,paddleHeight, 'white');
+  //user paddle 2
+  colorRect(canvas.width-paddleWidth,paddle2Y,paddleWidth,paddleHeight, 'white');
   //ball
   canvasContext.fillStyle = 'white';
   colorCircle(ballX,ballY,10, 'white');
@@ -53,20 +57,25 @@ function ballReset() {
 function moveEverything() {
   ballX += ballSpeedX
   ballY += ballSpeedY
-  if(ballX > canvas.width) {
-    ballSpeedX = -ballSpeedX
+  paddle2Y = ballY - paddleHeight/2
+  if(ballX > canvas.width-paddleWidth) {
+    if ((ballY > paddle2Y) && ballY <= (paddle2Y+paddleHeight)) {
+      ballSpeedX = -ballSpeedX
+    }else {
+      ballReset()
+    }
   }
-  if (ballX < 0) {
+  if (ballX < paddleWidth) {
     if ((ballY > paddle1Y) && ballY <= (paddle1Y+paddleHeight)) {
       ballSpeedX = -ballSpeedX
     }else {
       ballReset()
     }
   }
-  if (ballY < 0) {
+  if (ballY < paddleWidth) {
     ballSpeedY = -ballSpeedY
   }
-  if (ballY > canvas.height) {
+  if (ballY > canvas.height-10) {
     ballSpeedY = -ballSpeedY
   }
 }
