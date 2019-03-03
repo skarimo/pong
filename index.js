@@ -1,7 +1,7 @@
 let canvas;
 let canvasContext;
-let ballX = 50;
-let ballY = 50;
+let ballX;
+let ballY;
 let ballSpeedX = 5
 let ballSpeedY = 5
 let paddle1Y = 250
@@ -13,6 +13,8 @@ window.onload = function() {
   canvas = document.querySelector('#gameCanvas');
   canvasContext = canvas.getContext('2d');
   const framesPerSecond = 30
+  ballX = canvas.width/2
+  ballY = canvas.height/2
   setInterval(() => {
     moveEverything()
     drawEverything()
