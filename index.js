@@ -18,7 +18,7 @@ window.onload = function() {
 
   canvas.addEventListener('mousemove', (e)=> {
     let mousePos = calculateMousePos(e)
-    paddle1Y = mousePos.y
+    paddle1Y = mousePos.y - paddleHeight/2
   })
 }
 
@@ -44,6 +44,12 @@ function colorRect(leftX,topY,width,height, drawColor) {
   canvasContext.fillRect(leftX,topY,width,height);
 }
 
+function ballReset() {
+  ballSpeedX = -ballSpeedX
+  ballX = canvas.width/2
+  ballY = canvas.height/2
+}
+
 function moveEverything() {
   ballX += ballSpeedX
   ballY += ballSpeedY
@@ -51,7 +57,11 @@ function moveEverything() {
     ballSpeedX = -ballSpeedX
   }
   if (ballX < 0) {
-    ballSpeedX = -ballSpeedX
+    if ((ballY > paddle1Y) && ballY <= (paddle1Y+paddleHeight)) {
+      ballSpeedX = -ballSpeedX
+    }else {
+      ballReset()
+    }
   }
   if (ballY < 0) {
     ballSpeedY = -ballSpeedY
