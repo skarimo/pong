@@ -70,6 +70,8 @@ function moveEverything() {
   if(ballX > canvas.width-paddleWidth) {
     if ((ballY > paddle2Y) && ballY <= (paddle2Y+paddleHeight)) {
       ballSpeedX = -ballSpeedX
+      let deltaY = ballY - (paddle2Y + paddleHeight/2)
+      ballSpeedY = deltaY * 0.35
     }else {
       ballReset()
     }
@@ -77,6 +79,8 @@ function moveEverything() {
   if (ballX < paddleWidth) {
     if ((ballY > paddle1Y) && ballY <= (paddle1Y+paddleHeight)) {
       ballSpeedX = -ballSpeedX
+      let deltaY = ballY - (paddle1Y + paddleHeight/2)
+      ballSpeedY = deltaY * 0.35
     }else {
       ballReset()
     }
